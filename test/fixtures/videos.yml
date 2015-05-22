@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  year: 1
+  imdb: MyString
+  genre: MyText
+  actors: MyText
+  rating: MyString
+  poster: MyString
+  filename: MyString
+  folder: MyString
+  size: 
+  status: false
+  delete: false
+
+two:
+  title: MyString
+  year: 1
+  imdb: MyString
+  genre: MyText
+  actors: MyText
+  rating: MyString
+  poster: MyString
+  filename: MyString
+  folder: MyString
+  size: 
+  status: false
+  delete: false
