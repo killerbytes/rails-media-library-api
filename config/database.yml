@@ -25,6 +25,6 @@ test:
 
 production:
   adapter: postgresql
-  database: my_library
+  database: media_library
   username: joelcarlos
   password:
