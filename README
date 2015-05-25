@@ -1,0 +1,2 @@
+//restore db to heroku
+heroku pg:backups restore 'https://dl.dropboxusercontent.com/u/57218815/media_library_dev.dump' DATABASE_URL
