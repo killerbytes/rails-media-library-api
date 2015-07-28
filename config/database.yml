@@ -10,9 +10,9 @@ default: &default
   timeout: 5000
 
 development:
-  adapter: postgresql
+  adapter: mysql2
   database: media_library_dev
-  username: joelcarlos
+  username: root
   password:
 
 

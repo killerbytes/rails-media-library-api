@@ -13,30 +13,27 @@
 
 ActiveRecord::Schema.define(version: 20150225134355) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "videos", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "year"
-    t.string   "imdb"
-    t.text     "genre"
-    t.text     "actors"
-    t.string   "rating"
-    t.string   "poster"
-    t.string   "filename"
-    t.string   "folder"
-    t.string   "size"
-    t.boolean  "status"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.boolean  "deleted"
-    t.string   "attachments_file_name"
-    t.string   "attachments_content_type"
-    t.integer  "attachments_file_size"
+    t.string   "title",                    limit: 255
+    t.integer  "year",                     limit: 4
+    t.string   "imdb",                     limit: 255
+    t.text     "genre",                    limit: 65535
+    t.text     "actors",                   limit: 65535
+    t.string   "rating",                   limit: 255
+    t.string   "poster",                   limit: 255
+    t.string   "filename",                 limit: 255
+    t.string   "folder",                   limit: 255
+    t.string   "size",                     limit: 255
+    t.boolean  "status",                   limit: 1
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "deleted",                  limit: 1
+    t.string   "attachments_file_name",    limit: 255
+    t.string   "attachments_content_type", limit: 255
+    t.integer  "attachments_file_size",    limit: 4
     t.datetime "attachments_updated_at"
-    t.string   "attachments"
-    t.boolean  "is3D"
+    t.string   "attachments",              limit: 255
+    t.boolean  "is3D",                     limit: 1
   end
 
 end

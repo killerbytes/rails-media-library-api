@@ -3,33 +3,53 @@ class VideosController < ApplicationController
  	respond_to :json, :html
  	
  	def index
-		if params[:status].nil?
-			@videos = Video.select(:id,:title, :year, :imdb, :genre, :actors, :rating, :filename, :folder, :size, :attachments, :attachments_file_name, :is3D, :created_at, :poster).where({:status => true, :deleted => false, :deleted => nil})
-		elsif
-			@videos = Video.where(status: false, status: nil, deleted: false, deleted: nil)
-		end
- 		if @videos.blank?
-	 		@videos = []
-	 	elsif 	 		
-	 		@videos.order(:title)
-			@videos = @videos.order(:title)
-		end
-		respond_with(@videos)
+ 		status = params[:status].nil? || params[:status]
+ 		page = !params[:page].nil? #|| params[:page]
 
+		# if params[:status] == "false"
+		# 	@videos = Video.where(:status => false)
+		# elsif
+		# 	@videos = Video.select(:id,:title, :year, :imdb, :genre, :actors, :rating, :filename, :folder, :size, :attachments_file_name, :is3D, :created_at, :poster)
+		# 	.where({:status => true})
+		# 	.order(:title)
+		# # 	# .limit(5)
+		# end
+		# if params[:deleted].nil?
+	 # 		deleted = params[:deleted] == 'true' ? true : false
+		# @videos = Video.select(:id,:title, :year, :imdb, :genre, :actors, :rating, :filename, :folder, :size, :attachments_file_name, :is3D, :created_at, :poster)
+		if page == true
+			@videos = Video.paginate(:page => params[:page])
+				.where(:status => status, :deleted => false)			
+				.order(:title)
+		else
+			@videos = Video
+				.select(:id,:title, :year, :imdb, :genre, :actors, :rating, :filename, :folder, :size, :attachments_file_name, :is3D, :created_at)
+				.where(:status => status, :deleted => false)			
+				.order(:title)
+
+		end
+
+		respond_with(@videos)
+	end
+	def deleted
+		@videos = Video.where(:deleted => true)			
+		respond_with(@videos)
 	end
 
+
 	def show
-		@video = Video.where(id: params[:id]).first
+		@video = Video.find( params[:id] )
+		@video.poster = @video.attachments_file_name ? @video.attachments_file_name : @video.attachments
 		respond_with(@video)
 	end
 
 	def update
-		video = Video.where(id: params[:id])	
+		video = Video.find( params[:id] )	
 		respond_with video.update(video_params)	
 	end
 
 	def destroy
-		video = Video.where(id: params[:id])
+		video = Video.find( params[:id] )
 		respond_with video.update({deleted: true})
 	end
 
@@ -67,7 +87,7 @@ class VideosController < ApplicationController
 
 	private
 		def video_params
-			params.require(:video).permit(:attachments,:title, :year, :imdb, :genre, :actors, :rating, :poster, :filename, :folder, :size, :status, :deleted, :is3D)
+			params.require(:video).permit! #.permit(:attachments,:title, :year, :imdb, :genre, :actors, :rating, :poster, :filename, :folder, :size, :status, :deleted, :is3D)
 		end
 
 
