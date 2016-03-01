@@ -1,0 +1,14 @@
+# config/aws.yml
+defaults: &defaults
+  access_key_id: "AKIAJ4K6ZUXG5PVQLILQ"
+  secret_access_key: "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"
+development:
+  <<: *defaults
+  bucket: "azd-media-photos"
+test:
+  <<: *defaults
+  bucket: "myapp-test"
+production:
+  access_key_id: "AKIAJ4K6ZUXG5PVQLILQ"
+  secret_access_key: "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"
+  bucket: "azd-media-photos"
